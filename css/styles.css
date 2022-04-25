@@ -232,6 +232,9 @@ section.your-active-class .landing__container::after {
     transform: rotate(360deg) translate(-1em) rotate(-360deg);
   }
 }
-/* html {
-    scroll-behavior: smooth;  
-} */
+.activeNave {
+  background-color: gray;
+}
+.activeNave a {
+  color: #cc1 !important;
+}

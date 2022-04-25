@@ -1,13 +1,17 @@
 # Landing Page Project
 
+landing page is html,css and js project
+
 ## Table of Contents
 
-* [Instructions](#instructions)
+    5 sections ,
+    navbar content 5 element
 
-## Instructions
+## Features
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+    section number 4 and 5 and navbar include its element build by js
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Tech
 
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+    each section is active when it in the viewport
+    when any section element in navbar clicked the page scroll smothly to the section

@@ -60,12 +60,12 @@ main.appendChild(sec5);
 
 //creating nav elements
 const fragment = document.createDocumentFragment();
-
-for (let i = 1; i <= 5; i++) {
+const navN = document.querySelectorAll("section");
+for (let i = 1; i <= navN.length; i++) {
   const newA = document.createElement("a");
   const newLi = document.createElement("li");
   newA.textContent = "Section " + i;
-  newA.setAttribute("href", "#section" + i);
+  newA.setAttribute("data-nav", "Section " + i);
   //put some style
   newA.style.color = "white";
   newA.style.textDecoration = "none";
@@ -73,7 +73,7 @@ for (let i = 1; i <= 5; i++) {
   //appening
   newLi.append(newA);
   newLi.setAttribute("class", "nav-item");
-  newLi.style.margin = "15px";
+  newLi.style.padding = "15px";
   fragment.appendChild(newLi);
 }
 
@@ -83,48 +83,41 @@ navUl.appendChild(fragment);
 const navheader = document.querySelector("header");
 navheader.style.backgroundColor = "black";
 //_________________________________________________________________________________
-
-// function scrolled(ev) {
-//   const sec1 = document.querySelector("#section1");
-//   const sec2 = document.querySelector("#section2");
-//   const sec3 = document.querySelector("#section3");
-//   const sections = document.querySelectorAll("section");
-//   var postionsT = [];
-//   for (var section of sections) {
-//     section.classList.remove("your-active-class");
-//     postionsT.push(section.getBoundingClientRect().top);
-//   }
-//   var sec1T = sections[0];
-//   var sec2T = sections[1];
-//   var sec3T = sections[2];
-//   var sec4T = sections[3];
-//   var sec5T = sections[4];
-//   var posT = document.body.getBoundingClientRect().top;
-//   if (posT === sec1T) {
-//     sec1.classList.add("your-active-class");
-//   } else if (posT === sec2T) {
-//     sec2.classList.add("your-active-class");
-//   } else if (posT === sec3T) {
-//     sec4.classList.add("your-active-class");
-//   } else if (posT === sec4T) {
-//     sec4.classList.add("your-active-class");
-//   }
-// }
-
+//clike event for navBar
 const hypers = document.querySelectorAll("a");
-
+const sections = document.querySelectorAll("section");
 function clicke(evt) {
-  evt.target.setAttribute("class", " your-active-class");
-  evt.target.scrolIntoView({
-    behavioe: smoth,
-  });
+  if (evt.target.tagName === "A") {
+    //to make it work only if the target is hyperlink
+    for (hyper of hypers) {
+      hyper.parentElement.classList.remove("activeNave"); //remove the class of each link to praper to add the class for the target
+    }
+    const smothSec = document.querySelector(
+      `section[data-nav="${evt.target.getAttribute("data-nav")}"]` //selcet section which has the same attribute (data-nav) of the target
+    );
+    smothSec.scrollIntoView({
+      block: "start",
+      behavior: "smooth",
+      inline: "start",
+    });
+    evt.target.parentElement.setAttribute("class", "activeNave");
+  }
 }
-hypers.addEventListener("click", clicke);
+navUl.addEventListener("click", clicke);
 
-const clickedFunction = function clicked(evet) {};
-
-const navItems = document.querySelector("li");
-navItems.addEventListener("click", clickedFunction());
-
-var topPage = document.body.getBoundingClientRect().top;
-// if ( topPage <1)
+//scroll event  for sections
+function scrolle() {
+  for (section of sections) {
+    section.classList.remove("your-active-class");
+    const boundery = section.getBoundingClientRect(); //create variable to store bounding function of each section
+    for (let i = 0; i < sections.length; i++) {
+      let j = 250;
+      if (boundery.top < j && boundery.top > j - 300) {
+        //make the class add to the sections if the top chaged by 300 evey time
+        section.classList.add("your-active-class");
+        j -= 300;
+      }
+    }
+  }
+}
+window.addEventListener("scroll", scrolle);
